@@ -53,7 +53,7 @@
         .nailoong {
             width: 180px;
             height: 180px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="80" r="60" fill="%23FFEB3B" stroke="%23FFC107" stroke-width="4"/><circle cx="80" cy="70" r="10" fill="%23633"/><circle cx="120" cy="70" r="10" fill="%23633"/><path d="M90,100 Q100,120 110,100" stroke="%23633" fill="none" stroke-width="3"/><path d="M60,50 Q70,70 100,70 Q130,70 140,50" stroke="%23FF9800" fill="none" stroke-width="4" stroke-linecap="round"/><path d="M50,120 L50,170 L30,190" stroke="%23FF9800" fill="none" stroke-width="5" stroke-linecap="round"/><path d="M150,120 L150,170 L170,190" stroke="%23FF9800" fill="none" stroke-width="5" stroke-linecap="round"/><path d="M70,110 L30,80 M130,110 L170,80" stroke="%23FF9800" fill="none" stroke-width="4" stroke-linecap="round"/></svg>');
+            background-image: url('https://photos.pinksale.finance/file/pinksale-logo-upload/1697444621057-f5ec2bed5e4e29f954dd668611cee5cd.png');
             background-size: contain;
             background-repeat: no-repeat;
             position: absolute;
@@ -67,7 +67,7 @@
         .cake {
             width: 150px;
             height: 120px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect x="40" y="80" width="120" height="80" rx="10" fill="%23FFEB3B" stroke="%23FFC107" stroke-width="4"/><rect x="50" y="60" width="100" height="20" rx="10" fill="%23FFA000" stroke="%23FF8F00" stroke-width="3"/><rect x="60" y="40" width="80" height="20" rx="10" fill="%23FF5252" stroke="%23FF1744" stroke-width="3"/><path d="M100,20 L100,40" stroke="%23633" stroke-width="3"/><text x="100" y="35" font-family="Arial" font-size="30" text-anchor="middle" fill="%23633">1</text><circle cx="70" cy="70" r="5" fill="%23FFEB3B"/><circle cx="130" cy="70" r="5" fill="%23FFEB3B"/></svg>');
+            background-image: url('https://tse3.mm.bing.net/th?id=OIP.SYb3xc549lNg6AR8jzySSwHaG2&pid=Api&P=0&h=180');
             background-size: contain;
             background-repeat: no-repeat;
             position: absolute;
@@ -76,7 +76,7 @@
             transform: translateX(-50%);
             z-index: 10;
             filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
-            animation: wiggle 3s infinite ease-in-out;
+            animation: cakeFloat 3s infinite ease-in-out;
         }
 
         .balloon {
@@ -182,15 +182,12 @@
             }
         }
 
-        @keyframes wiggle {
+        @keyframes cakeFloat {
             0%, 100% {
-                transform: translateX(-50%) rotate(0deg);
+                transform: translateX(-50%) translateY(0);
             }
-            25% {
-                transform: translateX(-50%) rotate(2deg);
-            }
-            75% {
-                transform: translateX(-50%) rotate(-2deg);
+            50% {
+                transform: translateX(-50%) translateY(-20px);
             }
         }
 
@@ -330,6 +327,12 @@
             document.querySelector('.nailoong').style.animation = 'none';
             setTimeout(() => {
                 document.querySelector('.nailoong').style.animation = 'jump 0.5s infinite alternate cubic-bezier(0.2, 0, 0.8, 1)';
+            }, 10);
+            
+            // Make cake bounce
+            document.querySelector('.cake').style.animation = 'none';
+            setTimeout(() => {
+                document.querySelector('.cake').style.animation = 'cakeFloat 1s infinite ease-in-out';
             }, 10);
         });
 
