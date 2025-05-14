@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nailoong's 1st Birthday!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Comic+Neue:wght@700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fffacd;
+            background-image: radial-gradient(circle, #fff176 10%, transparent 10%),
+                              radial-gradient(circle, #fff176 10%, transparent 10%);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            overflow: hidden;
+            font-family: 'Baloo 2', cursive;
+        }
+
+        .title {
+            font-size: 4rem;
+            color: #ff8a65;
+            text-align: center;
+            margin: 20px 0;
+            text-shadow: 3px 3px 0 #fff, 5px 5px 0 rgba(255,138,101,0.3);
+            animation: bounce 1.5s infinite alternate;
+            z-index: 20;
+            position: relative;
+            background: linear-gradient(45deg, #ffecb3, #ffcc80);
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            border: 4px dashed #ffb74d;
+        }
+
+        .party-scene {
+            width: 100%;
+            height: 70vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 10;
+        }
+
+        .nailoong {
+            width: 180px;
+            height: 180px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="80" r="60" fill="%23FFEB3B" stroke="%23FFC107" stroke-width="4"/><circle cx="80" cy="70" r="10" fill="%23633"/><circle cx="120" cy="70" r="10" fill="%23633"/><path d="M90,100 Q100,120 110,100" stroke="%23633" fill="none" stroke-width="3"/><path d="M60,50 Q70,70 100,70 Q130,70 140,50" stroke="%23FF9800" fill="none" stroke-width="4" stroke-linecap="round"/><path d="M50,120 L50,170 L30,190" stroke="%23FF9800" fill="none" stroke-width="5" stroke-linecap="round"/><path d="M150,120 L150,170 L170,190" stroke="%23FF9800" fill="none" stroke-width="5" stroke-linecap="round"/><path d="M70,110 L30,80 M130,110 L170,80" stroke="%23FF9800" fill="none" stroke-width="4" stroke-linecap="round"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: absolute;
+            bottom: 150px;
+            animation: jump 0.7s infinite alternate cubic-bezier(0.5, 0, 0.5, 1);
+            transform-origin: bottom center;
+            z-index: 15;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+        }
+
+        .cake {
+            width: 150px;
+            height: 120px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect x="40" y="80" width="120" height="80" rx="10" fill="%23FFEB3B" stroke="%23FFC107" stroke-width="4"/><rect x="50" y="60" width="100" height="20" rx="10" fill="%23FFA000" stroke="%23FF8F00" stroke-width="3"/><rect x="60" y="40" width="80" height="20" rx="10" fill="%23FF5252" stroke="%23FF1744" stroke-width="3"/><path d="M100,20 L100,40" stroke="%23633" stroke-width="3"/><text x="100" y="35" font-family="Arial" font-size="30" text-anchor="middle" fill="%23633">1</text><circle cx="70" cy="70" r="5" fill="%23FFEB3B"/><circle cx="130" cy="70" r="5" fill="%23FFEB3B"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
+            animation: wiggle 3s infinite ease-in-out;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.1));
+            z-index: 5;
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 60px;
+            background-color: rgba(0,0,0,0.2);
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            opacity: 0;
+            z-index: 1;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+        }
+
+        .sound-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff8a65;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .sound-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .table {
+            position: absolute;
+            bottom: 0;
+            width: 500px;
+            height: 80px;
+            background-color: #a1887f;
+            border-radius: 20px 20px 0 0;
+            z-index: 8;
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.2);
+        }
+
+        @keyframes jump {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                transform: translateY(-120px) scale(1.05);
+            }
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: translateY(0) rotate(-2deg);
+            }
+            100% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-70px) rotate(5deg);
+            }
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes wiggle {
+            0%, 100% {
+                transform: translateX(-50%) rotate(0deg);
+            }
+            25% {
+                transform: translateX(-50%) rotate(2deg);
+            }
+            75% {
+                transform: translateX(-50%) rotate(-2deg);
+            }
+        }
+
+        @keyframes burst {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Epi Betdeeyy Nailooong!!! 🎉🦕</h1>
+    
+    <div class="party-scene">
+        <div class="table"></div>
+        <div class="nailoong"></div>
+        <div class="cake"></div>
+    </div>
+    
+    <button class="sound-toggle" id="soundToggle">🎵</button>
+    
+    <audio id="bgMusic" loop>
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-happy-birthday-song-2080.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Create balloons
+        const balloonColors = ['#ff9a9e', '#fad0c4', '#a18cd1', '#84fab0', '#8fd3f4', '#f6d365', '#ffd3b6'];
+        for (let i = 0; i < 12; i++) {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = Math.random() * 100 + 'vw';
+            balloon.style.top = Math.random() * 100 + 'vh';
+            balloon.style.backgroundColor = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+            balloon.style.animationDelay = Math.random() * 5 + 's';
+            balloon.style.opacity = '0.9';
+            
+            // Add balloon string
+            const string = document.createElement('div');
+            string.style.position = 'absolute';
+            string.style.width = '2px';
+            string.style.height = '60px';
+            string.style.backgroundColor = 'rgba(0,0,0,0.2)';
+            string.style.bottom = '-60px';
+            string.style.left = '50%';
+            string.style.transform = 'translateX(-50%)';
+            
+            balloon.appendChild(string);
+            document.body.appendChild(balloon);
+        }
+
+        // Create confetti
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-10px';
+            confetti.style.width = (Math.random() * 15 + 8) + 'px';
+            confetti.style.height = (Math.random() * 15 + 8) + 'px';
+            confetti.style.backgroundColor = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+            confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+            confetti.style.opacity = '0.9';
+            
+            // Random shape
+            if (Math.random() > 0.7) {
+                confetti.style.clipPath = 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)';
+            }
+            
+            document.body.appendChild(confetti);
+            
+            // Animate falling confetti
+            const duration = Math.random() * 4 + 3;
+            confetti.style.animation = `fall ${duration}s linear forwards`;
+            
+            // Remove confetti after animation
+            setTimeout(() => {
+                confetti.remove();
+            }, duration * 1000);
+        }
+
+        // Start confetti loop
+        setInterval(createConfetti, 150);
+
+        // Sound toggle
+        const soundToggle = document.getElementById('soundToggle');
+        const bgMusic = document.getElementById('bgMusic');
+        let soundOn = false;
+
+        soundToggle.addEventListener('click', () => {
+            soundOn = !soundOn;
+            if (soundOn) {
+                bgMusic.play();
+                soundToggle.textContent = '🔊';
+                soundToggle.style.backgroundColor = '#ff8a65';
+            } else {
+                bgMusic.pause();
+                soundToggle.textContent = '🔇';
+                soundToggle.style.backgroundColor = '#888';
+            }
+        });
+
+        // Click anywhere for extra celebration
+        document.addEventListener('click', (e) => {
+            // Create burst effect
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const burst = document.createElement('div');
+                    burst.className = 'confetti';
+                    burst.style.left = e.clientX + 'px';
+                    burst.style.top = e.clientY + 'px';
+                    burst.style.width = (Math.random() * 20 + 10) + 'px';
+                    burst.style.height = burst.style.width;
+                    burst.style.backgroundColor = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+                    burst.style.borderRadius = '50%';
+                    burst.style.opacity = '0.9';
+                    document.body.appendChild(burst);
+                    
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 150 + 50;
+                    const duration = Math.random() * 1 + 0.5;
+                    
+                    burst.style.animation = `burst ${duration}s forwards`;
+                    burst.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+                    
+                    setTimeout(() => {
+                        burst.remove();
+                    }, duration * 1000);
+                }, i * 50);
+            }
+            
+            // Make Nailoong jump higher
+            document.querySelector('.nailoong').style.animation = 'none';
+            setTimeout(() => {
+                document.querySelector('.nailoong').style.animation = 'jump 0.5s infinite alternate cubic-bezier(0.2, 0, 0.8, 1)';
+            }, 10);
+        });
+
+        // Auto-click every 3 seconds for automatic celebration
+        setInterval(() => {
+            const autoClick = new MouseEvent('click', {
+                view: window,
+                bubbles: true,
+                cancelable: true,
+                clientX: window.innerWidth / 2 + (Math.random() * 200 - 100),
+                clientY: window.innerHeight / 2 + (Math.random() * 200 - 100)
+            });
+            document.dispatchEvent(autoClick);
+        }, 3000);
+    </script>
+</body>
+</html>
